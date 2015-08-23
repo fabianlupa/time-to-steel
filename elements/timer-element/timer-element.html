@@ -1,0 +1,53 @@
+<dom-module id="timer-element">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <h2>Time left: <span>{{formatTime(timeleft)}}</span></h2>
+  </template>
+</dom-module>
+<script>
+  (function () {
+    Polymer({
+      is: 'timer-element',
+      timeleft: 0,
+      properties: {
+        items: {
+          type: Array,
+          notify: true,
+          observer: 'itemsChanged'
+        }
+      },
+      ready: function () {
+      },
+      itemsChanged: function () {
+        if (this.items !== undefined) {
+          this.timeleft = 0;
+          for (var i = 0; i < this.items.length; i++) {
+            var now = new Date();
+            var start = new Date(Date.parse(this.items[i].start));
+            var end = new Date(Date.parse(this.items[i].end));
+
+            if (now > end) continue;
+            if (now > start) start = now;
+
+            this.timeleft += (end - start) / 1000;
+
+          }
+          this.async(this.itemsChanged, 1000);
+        }
+      },
+      formatTime: function (unformatted) {
+        var totalSec = unformatted;
+        var hours = Math.floor(totalSec / 3600);
+        var minutes = Math.floor((totalSec - (hours * 3600)) / 60);
+        var seconds = Math.round(totalSec - (hours * 3600) - (minutes * 60));
+
+        return ((hours < 10 ? "0" + hours : hours) + " Hours " + (minutes < 10 ? "0" + minutes : minutes) + " Minutes "
+        + (seconds < 10 ? "0" + seconds : seconds) + " Seconds");
+      }
+    });
+  })();
+</script>
