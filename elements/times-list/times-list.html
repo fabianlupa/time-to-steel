@@ -3,11 +3,43 @@
     :host {
       display: block;
     }
+    ul.simple-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    .list-item {
+      margin: 2px;
+      padding: 2px;
+      background: darkgray;
+    }
+    .done {
+      color: green;
+      background: #e8fde9;
+    }
+    .current {
+      color: yellow;
+      background: #ebfdeb;
+    }
+    .soon {
+      color: red;
+      background: #fdeaeb;
+    }
   </style>
   <template>
-    <ul>
+    <ul class="simple-list">
       <template is="dom-repeat" items="{{items}}">
-        <li><span>{{item.start}}</span> - <span>{{item.end}}</span></li>
+        <li class$="{{getItemClass(item)}}">
+          <div class="layout horizontal flex top">
+            <div class="flex"></div>
+            <span>{{item.start}}</span>
+            <div class="flex"></div>
+            <span> - </span>
+            <div class="flex"></div>
+            <span>{{item.end}}</span>
+            <div class="flex"></div>
+          </div>
+        </li>
       </template>
     </ul>
   </template>
@@ -23,6 +55,22 @@
         }
       },
       ready: function () {
+      },
+      getItemClass: function (item) {
+        var now = new Date();
+        var start = new Date(item.start);
+        var end = new Date(item.end);
+
+        var classname = "list-item ";
+        if (now > end) {
+          classname += "done";
+        } else if (now > start && now < end) {
+          classname += "current";
+        } else {
+          classname += "soon";
+        }
+
+        return classname;
       }
     });
   })();

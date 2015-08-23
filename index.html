@@ -2,19 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="mobile-web-app-capable" content="yes">
   <script src="bower_components/webcomponentsjs/webcomponents-lite.js">
   </script>
+  <link rel="import" href="theme.html">
   <link rel="import" href="bower_components/polymer/polymer.html">
   <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+  <link rel="import" href="bower_components/paper-styles/paper-styles.html">
+  <link rel="import" href="bower_components/paper-material/paper-material.html">
+  <link rel="import" href="bower_components/paper-header-panel/paper-header-panel.html">
   <link rel="import" href="elements/timer-element/timer-element.html">
   <link rel="import" href="elements/times-list/times-list.html">
   <title>time-to-steel</title>
 </head>
-<body>
+<body class="fullbleed layout vertical">
   <template is="dom-bind" id="app">
-    <h1>time-to-steel</h1>
-    <timer-element items="{{timesAjax}}"></timer-element>
-    <times-list id="timesList" items="{{timesAjax}}"></times-list>
+    <paper-header-panel mode="waterfall-tall">
+      <paper-toolbar>
+        <div class="layout horizontal flex top">
+          <div class="flex"></div>
+          <timer-element items="{{timesAjax}}"></timer-element>
+          <div class="flex"></div>
+        </div>
+      </paper-toolbar>
+      <paper-material>
+        <times-list items="{{timesAjax}}"></times-list>
+      </paper-material>
+    </paper-header-panel>
+
     <iron-ajax id="ajax" auto
                url="times.json"
                handle-as="json"

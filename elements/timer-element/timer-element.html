@@ -3,9 +3,19 @@
     :host {
       display: block;
     }
+
+    h1 {
+      font-size: 30px;
+    }
+
+    @media (max-width: 560px) {
+      h1 {
+        font-size: 22px;
+      }
+    }
   </style>
   <template>
-    <h2>Time left: <span>{{formatTime(timeleft)}}</span></h2>
+    <h1>{{formatTime(timeleft)}}</h1>
   </template>
 </dom-module>
 <script>
@@ -27,8 +37,8 @@
           this.timeleft = 0;
           for (var i = 0; i < this.items.length; i++) {
             var now = new Date();
-            var start = new Date(Date.parse(this.items[i].start));
-            var end = new Date(Date.parse(this.items[i].end));
+            var start = new Date(this.items[i].start);
+            var end = new Date(this.items[i].end);
 
             if (now > end) continue;
             if (now > start) start = now;
