@@ -5,9 +5,20 @@
   <script src="bower_components/webcomponentsjs/webcomponents-lite.js">
   </script>
   <link rel="import" href="bower_components/polymer/polymer.html">
+  <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+  <link rel="import" href="elements/timer-element/timer-element.html">
+  <link rel="import" href="elements/times-list/times-list.html">
   <title>time-to-steel</title>
 </head>
 <body>
-  <h1>time-to-steel</h1>
+  <template is="dom-bind" id="app">
+    <h1>time-to-steel</h1>
+    <timer-element items="{{timesAjax}}"></timer-element>
+    <times-list id="timesList" items="{{timesAjax}}"></times-list>
+    <iron-ajax id="ajax" auto
+               url="times.json"
+               handle-as="json"
+               last-response="{{timesAjax}}"></iron-ajax>
+  </template>
 </body>
 </html>
