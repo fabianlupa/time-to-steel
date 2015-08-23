@@ -1,0 +1,29 @@
+<dom-module id="times-list">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <ul>
+      <template is="dom-repeat" items="{{items}}">
+        <li><span>{{item.start}}</span> - <span>{{item.end}}</span></li>
+      </template>
+    </ul>
+  </template>
+</dom-module>
+<script>
+  (function () {
+    Polymer({
+      is: 'times-list',
+      properties: {
+        items: {
+          type: Array,
+          notify: true
+        }
+      },
+      ready: function () {
+      }
+    });
+  })();
+</script>
