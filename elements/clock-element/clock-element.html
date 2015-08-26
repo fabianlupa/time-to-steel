@@ -1,0 +1,26 @@
+<dom-module id="clock-element">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <span>{{currentTime}}</span>
+  </template>
+</dom-module>
+<script>
+  (function () {
+    Polymer({
+      is: 'clock-element',
+      ready: function () {
+        this.refreshCurrentTime();
+      },
+      refreshCurrentTime: function () {
+        var time = new Date();
+        this.currentTime = time.toTimeString();
+
+        this.async(this.refreshCurrentTime, 1000);
+      }
+    });
+  })();
+</script>
