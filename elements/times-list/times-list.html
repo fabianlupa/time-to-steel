@@ -32,11 +32,11 @@
         <li class$="{{getItemClass(item)}}">
           <div class="layout horizontal flex top">
             <div class="flex"></div>
-            <span>{{item.start}}</span>
+            <span>{{formatDateTime(item.start)}}</span>
             <div class="flex"></div>
             <span> - </span>
             <div class="flex"></div>
-            <span>{{item.end}}</span>
+            <span>{{formatDateTime(item.end)}}</span>
             <div class="flex"></div>
           </div>
         </li>
@@ -55,6 +55,14 @@
         }
       },
       ready: function () {
+      },
+      formatDateTime: function (time) {
+        var d = new Date(time);
+        return d.getFullYear() + '-' + this.pad(d.getMonth() + 1) + '-' + this.pad(d.getDate()) + ' ' +
+          this.pad(d.getHours()) + ':' + this.pad(d.getMinutes());
+      },
+      pad: function (n) {
+        return (n < 10) ? ('0' + n) : n;
       },
       getItemClass: function (item) {
         var now = new Date();
